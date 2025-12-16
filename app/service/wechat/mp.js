@@ -22,7 +22,7 @@ class MPService extends Service {
     const {
       appId,
       appSecret,
-    } = this.app.config.mp;
+    } = this.app.config.wechat;
     const url = `${jscode2sessionUri}?appid=${appId}&secret=${appSecret}&js_code=${code}&grant_type=authorization_code`;
     const res = await this.ctx.curl(url, {
       dataType: 'json',
@@ -39,7 +39,7 @@ class MPService extends Service {
     const {
       appId,
       appSecret,
-    } = this.app.config.mp;
+    } = this.app.config.wechat;
     const url = `${tokenUri}?grant_type=client_credential&appid=${appId}&secret=${appSecret}`;
     const res = await this.ctx.curl(url, {
       dataType: 'json',
@@ -58,7 +58,7 @@ class MPService extends Service {
   async decryptData(sessionKey, encryptedData, iv) {
     const {
       appId,
-    } = this.app.config.mp;
+    } = this.app.config.wechat;
     const sessionKeyBuffer = new Buffer.from(sessionKey, 'base64');
     const encryptedDataBuffer = new Buffer.from(encryptedData, 'base64');
     const ivStr = new Buffer.from(iv, 'base64');
@@ -160,20 +160,20 @@ class MPService extends Service {
     const {
       appId,
       mchId,
-    } = app.config.mp;
+    } = app.config.wechat;
     const params = {
       openid,
       appid: appId,
       mch_id: mchId,
-      nonce_str: service.sign.createNonceStr(),
+      nonce_str: service.wechat.sign.createNonceStr(),
       out_trade_no: data.tradeNo || new Date().getTime(), // 内部订单号
       total_fee: data.totalFee || 1, // 单位为分的标价金额
-      body: data.body || '未知产品-测试商品', // 应用市场上的APP名字-商品概述	
+      body: data.body || '未知产品-测试商品', // 应用市场上的APP名字-商品概述
       spbill_create_ip: ctx.ip, // 支付提交用户端ip
       notify_url: data.notifyUrl || '', // 异步接收微信支付结果通知
       trade_type: 'JSAPI',
     };
-    params.sign = service.sign.getPaySign(params); // 首次签名，用于验证支付通知
+    params.sign = service.wechat.sign.getPaySign(params); // 首次签名，用于验证支付通知
     return params;
   }
 
@@ -185,15 +185,15 @@ class MPService extends Service {
     } = this;
     const {
       appId,
-    } = app.config.mp;
+    } = app.config.wechat;
     const res = {
       appId,
-      timeStamp: service.sign.createTimestamp(),
+      timeStamp: service.wechat.sign.createTimestamp(),
       nonceStr: json.nonce_str,
       package: `prepay_id=${json.prepay_id}`,
       signType: 'MD5',
     }; // 不能随意增减，必须是这些字段
-    res.paySign = service.sign.getPaySign(res); // 第二次签名，用于提交到微信
+    res.paySign = service.wechat.sign.getPaySign(res); // 第二次签名，用于提交到微信
     return res;
   }
 }

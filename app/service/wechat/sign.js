@@ -56,7 +56,7 @@ class SignService extends Service {
   getPaySign(args) {
     const {
       apiKey,
-    } = this.app.config.mp;
+    } = this.app.config.wechat;
     const rawStr = this.raw(args);
     const md5Str = this.md5(rawStr + '&key=' + apiKey);
     return md5Str.toUpperCase();

@@ -2,9 +2,14 @@
 
 exports.keys = '123456';
 
-exports.mp = {
-  appId: '', // 公众平台应用编号
-  appSecret: '', // 公众平台应用密钥
-  mchId: '', // 商户号
-  apiKey: '', // 接口密钥
+exports.wechat = {
+  appId: 'wx123456',
+  appSecret: 'secret123',
+  mchId: '123456',
+  apiKey: 'apikey123',
+  // Component config
+  componentAppId: 'wx_component_123',
+  componentAppSecret: 'component_secret_123',
+  componentToken: 'token123',
+  componentEncodingAESKey: 'aeskey123',
 };

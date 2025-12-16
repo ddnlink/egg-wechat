@@ -8,7 +8,7 @@ class HomeController extends Controller {
       app,
       ctx,
     } = this;
-    ctx.body = 'hi, ' + app.plugins.mp.name;
+    ctx.body = 'hi, ' + app.plugins.wechat.name;
   }
 }
 

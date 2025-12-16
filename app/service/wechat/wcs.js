@@ -24,11 +24,11 @@ class WCSService extends Service {
     const {
       appId,
       appSecret,
-    } = this.app.config.mp;
+    } = this.app.config.wechat;
     const url = `${tokenUri}?grant_type=client_credential&appid=${appId}&secret=${appSecret}`;
     const res = await this.ctx.curl(url, jsonType);
-    if (res.data.errcode){
-      throw new Error(res.data.errmsg)
+    if (res.data.errcode) {
+      throw new Error(res.data.errmsg);
     }
     return res.data;
   }
@@ -42,8 +42,8 @@ class WCSService extends Service {
   async getTicket(token) {
     const url = `${ticketUri}?access_token=${token}&type=jsapi`;
     const res = await this.ctx.curl(url, jsonType);
-    if (res.data.errcode){
-      throw new Error(res.data.errmsg)
+    if (res.data.errcode) {
+      throw new Error(res.data.errmsg);
     }
     return res.data;
   }
@@ -58,7 +58,7 @@ class WCSService extends Service {
     const tokenRes = await this.getToken();
     const ticketRes = await this.getTicket(tokenRes.access_token);
     const params = this._createConfigSign(ticketRes.ticket, url);
-    params.appId = this.app.config.mp.appId;
+    params.appId = this.app.config.wechat.appId;
     return params;
   }
 
@@ -72,7 +72,7 @@ class WCSService extends Service {
     const {
       appId,
       appSecret,
-    } = this.app.config.mp;
+    } = this.app.config.wechat;
     const url = `${authUri}?grant_type=authorization_code&appid=${appId}&secret=${appSecret}&code=${code}`;
     const res = await this.ctx.curl(url, jsonType);
     return res.data;
@@ -161,9 +161,9 @@ class WCSService extends Service {
       jsapi_ticket: ticket,
       url,
       timestamp,
-      noncestr: service.sign.createNonceStr(),
+      noncestr: service.wechat.sign.createNonceStr(),
     };
-    params.signature = service.sign.getConfigSign(params); // 配置签名，用于Web端调用接口
+    params.signature = service.wechat.sign.getConfigSign(params); // 配置签名，用于Web端调用接口
     return params;
   }
 
@@ -178,12 +178,12 @@ class WCSService extends Service {
       appId,
       mchId,
       notifyUrl,
-    } = app.config.mp;
+    } = app.config.wechat;
     const params = {
       openid: openid || '',
       appid: appId,
       mch_id: mchId,
-      nonce_str: service.sign.createNonceStr(),
+      nonce_str: service.wechat.sign.createNonceStr(),
       body: order.body || '我是测试商品',
       out_trade_no: order.tradeNo || new Date().getTime(), // 内部订单号
       total_fee: order.totalFee || 1, // 单位为分的标价金额
@@ -191,7 +191,7 @@ class WCSService extends Service {
       notify_url: notifyUrl, // 异步接收微信支付结果通知
       trade_type: 'JSAPI',
     };
-    params.sign = service.sign.getPaySign(params); // 订单签名，用于验证支付通知
+    params.sign = service.wechat.sign.getPaySign(params); // 订单签名，用于验证支付通知
     return params;
   }
 
@@ -203,15 +203,15 @@ class WCSService extends Service {
     } = this;
     const {
       appId,
-    } = app.config.mp;
+    } = app.config.wechat;
     const res = {
       appId,
-      timeStamp: service.sign.createTimestamp(),
+      timeStamp: service.wechat.sign.createTimestamp(),
       nonceStr: json.nonce_str,
       package: `prepay_id=${json.prepay_id}`,
       signType: 'MD5',
     }; // 不能随意增减，必须是这些字段
-    res.paySign = service.sign.getPaySign(res); // 第二次签名，用于提交到微信
+    res.paySign = service.wechat.sign.getPaySign(res); // 第二次签名，用于提交到微信
     return res;
   }
 }

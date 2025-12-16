@@ -9,10 +9,15 @@
  * @property {number}  apiKey  - 商户支付接口密钥
  * @property {number}  notifyUrl  - 支付结果回调地址
  */
-exports.mp = {
+exports.wechat = {
   appId: '',
   appSecret: '',
   mchId: '',
   apiKey: '',
   notifyUrl: '',
+  // 开放平台第三方平台配置
+  componentAppId: '',
+  componentAppSecret: '',
+  componentToken: '',
+  componentEncodingAESKey: '',
 };

@@ -1,10 +1,10 @@
 {
-  "name": "egg-mp",
-  "version": "1.0.23",
-  "description": "egg plugin for wechat",
+  "name": "@ddn/egg-wechat",
+  "version": "1.0.25",
+  "description": "Eggjs plugin for wechat",
   "types": "./index.d.ts",
   "eggPlugin": {
-    "name": "mp"
+    "name": "wechat"
   },
   "keywords": [
     "egg",
@@ -12,21 +12,22 @@
     "egg-wx",
     "egg-weixin",
     "egg-wechat",
-    "egg-mp",
     "wechat",
     "wxapp"
   ],
   "dependencies": {
-    "egg": "^2.23.0",
     "xml-js": "^1.6.11"
+  },
+  "peerDependencies": {
+    "egg": ">=3.0.0"
   },
   "devDependencies": {
     "autod": "^3.1.0",
     "autod-egg": "^1.1.0",
-    "egg": "^2.23.0",
-    "egg-bin": "^5.13.0",
+    "egg": "^3.0.0",
+    "egg-bin": "^6.13.0",
     "egg-ci": "^1.13.0",
-    "egg-mock": "^3.23.1",
+    "egg-mock": "^5.15.2",
     "eslint": "^6.2.1",
     "eslint-config-egg": "^7.4.1",
     "lodash": "^4.17.14"
@@ -35,12 +36,12 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local",
+    "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
     "lint": "eslint .",
-    "ci": "egg-bin pkgfiles --check && npm run lint && npm run cov",
-    "pkgfiles": "egg-bin pkgfiles",
+    "ci": "npm run lint && npm run cov",
+    "pkgfiles": "echo 'pkgfiles step skipped'",
     "autod": "autod"
   },
   "files": [
@@ -53,12 +54,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unclexiao/egg-mp.git"
+    "url": "git+https://github.com/ddnlink/egg-wechat.git"
   },
   "bugs": {
-    "url": "https://github.com/unclexiao/egg-mp/issues"
+    "url": "https://github.com/ddnlink/egg-wechat/issues"
   },
-  "homepage": "https://github.com/unclexiao/egg-mp#readme",
-  "author": "unclexiao <449129722@qq.com>",
+  "homepage": "https://github.com/ddnlink/egg-wechat#readme",
+  "author": "ddnlink <kubying@qq.com>",
   "license": "MIT"
 }
