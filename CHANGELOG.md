@@ -1,5 +1,15 @@
 # 改动历史
 
+## 2026-01-08, Version 1.0.26 @imfly
+ * 支持通过 `wechat.init(app)` / `wechat.override` 在启动前动态覆盖配置（覆盖所有模块，避免仅靠环境变量）
+
+## 2026-01-08, Version 1.0.27 @imfly
+ * 支持在运行时从宿主的统一配置服务读取 `wechat_platform.*` 并周期刷新到内存（无需把密钥写进 config.wechat）
+
+## 2026-01-09, Version 1.0.28 @imfly
+ * 新增 `ctx.service.wechat.platformHttp`：承载第三方平台 notify/callback/auth_url/auth_callback/mock_authorize 的 HTTP 解析/验签/解密/回包逻辑
+ * 新增依赖 `wechat-crypto` 并补充单测覆盖 notify 解密与 ticket 保存
+
 ## 2025-12-15, Version 1.0.24 @imfly
  * 新增第三方平台接口和内容、音视频安全检测接口实现
  

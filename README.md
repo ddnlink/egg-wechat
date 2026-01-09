@@ -63,6 +63,27 @@ exports.wechat = {
   componentAppSecret: '',
   componentToken: '',
   componentEncodingAESKey: '',
+
+  // ===== 可选：动态注入/覆盖配置（覆盖所有模块） =====
+  // 场景：配置存储在数据库/远程配置中心，不希望只靠环境变量。
+  // init 支持同步/异步，返回的对象会合并进 wechat 配置。
+  init: async (app) => {
+    // 例：从你自己的配置系统拉取（伪代码）
+    // const ctx = app.createAnonymousContext();
+    // const componentAppId = await ctx.service.config.get('wechat.component.appid');
+    // const componentAppSecret = await ctx.service.config.get('wechat.component.secret');
+    // return { componentAppId, componentAppSecret };
+    return {};
+  },
+  // 或者用静态 override（无需异步）
+  // override: { componentAppId: 'wx...', componentAppSecret: '...' },
+
+  // ===== 可选：运行时从统一配置读取（无需把密钥写进 config.wechat） =====
+  // 若宿主项目存在 ctx.service.config.unifiedConfig.get(key)（例如 ddn-hub），
+  // 插件可在运行时读取 wechat_platform.* 并周期刷新到内存。
+  // 注意：这是“读取方式”的开关，不要求你在 config.wechat 里填 appid/secret。
+  useUnifiedConfig: true,
+  unifiedConfigRefreshIntervalMs: 30000,
 };
 ```
 

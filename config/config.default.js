@@ -20,4 +20,12 @@ exports.wechat = {
   componentAppSecret: '',
   componentToken: '',
   componentEncodingAESKey: '',
+
+  // 可选：动态注入/覆盖配置（覆盖所有模块）
+  // init: async (app) => ({ componentAppId: 'wx...', componentAppSecret: '...' }),
+  // override: { componentAppId: 'wx...', componentAppSecret: '...' },
+
+  // 可选：运行时从统一配置读取并周期刷新（需要宿主提供 ctx.service.config.unifiedConfig.get）
+  // useUnifiedConfig: true,
+  // unifiedConfigRefreshIntervalMs: 30000,
 };

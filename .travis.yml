@@ -1,10 +1,10 @@
-
+sudo: false
 language: node_js
 node_js:
   - '8'
   - '10'
 before_install:
-  - npm i npminstall@5 -g
+  - npm i npminstall -g
 install:
   - npminstall
 script:

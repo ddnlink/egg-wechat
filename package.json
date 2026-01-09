@@ -1,6 +1,6 @@
 {
   "name": "@ddn/egg-wechat",
-  "version": "1.0.25",
+  "version": "1.0.28",
   "description": "Eggjs plugin for wechat",
   "types": "./index.d.ts",
   "eggPlugin": {
@@ -16,6 +16,7 @@
     "wxapp"
   ],
   "dependencies": {
+    "wechat-crypto": "^0.0.2",
     "xml-js": "^1.6.11"
   },
   "peerDependencies": {
@@ -47,6 +48,7 @@
   "files": [
     "app",
     "config",
+    "app.js",
     "index.d.ts"
   ],
   "ci": {
